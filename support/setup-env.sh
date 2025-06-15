@@ -1,4 +1,12 @@
-export PATH="/opt/rg35xx-toolchain/usr/bin:${PATH}:/opt/rg35xx-toolchain/usr/arm-buildroot-linux-gnueabihf/sysroot/bin"
-export CROSS_COMPILE=/opt/rg35xx-toolchain/usr/bin/arm-buildroot-linux-gnueabihf-
-export PREFIX=/opt/rg35xx-toolchain/usr/arm-buildroot-linux-gnueabihf/sysroot/usr
+TOOLCHAIN_ARCH=`uname -m`
+export BUILD_ARCH=aarch64-linux-gnu
+if [ "$TOOLCHAIN_ARCH" = "aarch64" ]; then
+	export CROSS_COMPILE=/usr/bin/${BUILD_ARCH}-
+	export PREFIX=/usr
+else
+	export PATH="/opt/${BUILD_ARCH}/${BUILD_ARCH}/bin:${PATH}:/opt/${BUILD_ARCH}/${BUILD_ARCH}/libc/bin"
+	export CROSS_COMPILE=/opt/${BUILD_ARCH}/bin/${BUILD_ARCH}-
+	export PREFIX=/opt/${BUILD_ARCH}/${BUILD_ARCH}/libc/usr
+fi
+export PREFIX_LOCAL=/opt/nextui
 export UNION_PLATFORM=rg35xx
